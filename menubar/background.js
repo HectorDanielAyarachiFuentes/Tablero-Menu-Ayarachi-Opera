@@ -73,3 +73,21 @@ if (typeof browser !== 'undefined' && browser.theme) {
     });
   });
 }
+
+// Abrir el tablero al hacer clic en el botón de la extensión en la barra de herramientas
+chrome.action.onClicked.addListener((tab) => {
+  chrome.tabs.create({ url: chrome.runtime.getURL('index.html') });
+});
+
+// Redireccionar automáticamente nuevas pestañas al tablero en Opera
+chrome.tabs.onCreated.addListener((tab) => {
+  if (tab.pendingUrl === 'chrome://newtab/' || tab.url === 'chrome://newtab/' || tab.pendingUrl === 'about:blank' || tab.url === 'about:blank' || tab.pendingUrl === 'chrome://startpage/' || tab.url === 'chrome://startpage/') {
+    chrome.tabs.update(tab.id, { url: chrome.runtime.getURL('index.html') });
+  }
+});
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.url && (changeInfo.url === 'chrome://newtab/' || changeInfo.url === 'chrome://startpage/' || changeInfo.url === 'about:blank' || changeInfo.url.startsWith('chrome://startpage'))) {
+    chrome.tabs.update(tabId, { url: chrome.runtime.getURL('index.html') });
+  }
+});
