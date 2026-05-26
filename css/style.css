@@ -1,0 +1,15 @@
+/* ==========================================================================
+   Tablero de Menú Firefox - Main Stylesheet Entry Point
+   All styles have been modularized into separate logical files for clarity.
+   ========================================================================== */
+
+@import "variables.css";
+@import "animations.css";
+@import "layout.css";
+@import "search.css";
+@import "tiles.css";
+@import "panels.css";
+@import "notes-doodle.css";
+@import "weather.css";
+@import "form-controls.css";
+@import "context-menu.css";
